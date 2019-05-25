@@ -2,11 +2,11 @@ FROM ubuntu1604:base
 
 LABEL description="Hue Project https://github.com/cloudera/hue"
 
-ADD hue_build/hue /opt/hue
-RUN mkdir -p /etc/hue/conf
-
-ENV HUE_CONF_DIR /etc/hue/conf
+COPY hue-build/hue /opt/hue
 COPY conf /opt/hue/desktop/conf
+
+RUN mkdir -p /etc/hue/conf
+ENV HUE_CONF_DIR /etc/hue/conf
 
 COPY startup.sh /opt/hue
 
