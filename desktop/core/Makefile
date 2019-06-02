@@ -20,10 +20,17 @@ ifeq ($(ROOT),)
   $(error "Error: Expect the environment variable $$ROOT to point to the Desktop installation")
 endif
 
+PYTHON_VER ?= python2.7
+
+MAKEFILE_SDK = $(ROOT)/Makefile.sdk
+ifneq ($(PYTHON_VER),python2.7)
+  MAKEFILE_SDK = $(shell echo "")
+endif
+
 # The default RSYNC_OPT copies unsafe links. We don't want that because
 # the symlink targets are always installed (separately). See HUE-565.
 RSYNC_OPT := -a
-include $(ROOT)/Makefile.sdk
+-include $(shell echo $(MAKEFILE_SDK))
 
 default::
 	@echo '  env-install    : Install into virtual-env'
